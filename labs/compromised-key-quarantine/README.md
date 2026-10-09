@@ -30,7 +30,7 @@ The user can still call `sts:GetCallerIdentity` and a limited set of read operat
 
 ## What I Did
 
-**Account:** 903859732425 (member account in an AWS Organization)
+**Account:** 903...... (member account in an AWS Organization)
 
 1. Created a dedicated IAM user with no permissions attached
 2. Generated long-term access keys for that user (key ID starting with `AKIA`)
