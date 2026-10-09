@@ -8,7 +8,7 @@ Each module deploys real, production-grade security controls — not just docume
 
 | Domain | Weight | Module | Status |
 |--------|--------|--------|--------|
-| 1. Threat Detection & Incident Response | 14% | `modules/threat-detection/` | Planned |
+| 1. Threat Detection & Incident Response | 14% | `modules/threat-detection/` | In Progress |
 | 2. Security Logging & Monitoring | 18% | `modules/logging/` | Planned |
 | 3. Infrastructure Security | 20% | `modules/infrastructure/` | Planned |
 | 4. Identity & Access Management | 16% | `modules/iam/` | Planned |
@@ -43,3 +43,11 @@ terraform destroy
 - [Terraform](https://developer.hashicorp.com/terraform/install) >= 1.5
 - AWS CLI configured with credentials (`aws configure`)
 - An AWS Organization (management account)
+
+## Labs
+
+Hands-on exercises reproducing real AWS security scenarios.
+
+| Lab | Domain | Description |
+|-----|--------|-------------|
+| [Compromised Key Quarantine](labs/compromised-key-quarantine/) | 1. Threat Detection & Incident Response | Triggering AWS's automatic credential quarantine by exposing IAM keys in a public repo |
