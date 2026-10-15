@@ -1,6 +1,6 @@
 # AWS Security Controls
 
-Terraform modules implementing AWS security controls aligned to the [AWS Security Specialty (SCS-C02)](https://aws.amazon.com/certification/certified-security-specialty/) exam domains.
+Terraform modules implementing AWS security controls
 
 Each module deploys real, production-grade security controls — not just documentation. The repo grows incrementally as I work through each exam domain.
 
