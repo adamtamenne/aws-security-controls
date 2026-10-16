@@ -50,4 +50,27 @@ Hands-on exercises reproducing real AWS security scenarios.
 
 | Lab | Domain | Description |
 |-----|--------|-------------|
-| [Compromised Key Quarantine](labs/compromised-key-quarantine/) | 1. Threat Detection & Incident Response | Triggering AWS's automatic credential quarantine by exposing IAM keys in a public repo |
+| [Compromised Key Quarantine](labs/compromised-key-quarantine/) | 1. Threat Detection & Incident Response | Triggering AWS's automatic credential quarantine by exposing IAM keys in a public repo | [Vulnerable Infrastructure](labs/vulnerable-infra/) | 3. Infrastructure Security | Intentionally misconfigured Terraform (public RDS, open security groups, unencrypted storage, hardcoded secrets, IMDSv1) scanned with Checkov. 22 passed, 35 failed. |
+
+
+## IaC Security Scanning
+
+The `labs/vulnerable-infra/` directory contains intentionally misconfigured Terraform to demonstrate infrastructure-as-code scanning with Checkov. This is the same concept as SAST for application code, but applied to infrastructure definitions.
+
+Checkov scans Terraform files against hundreds of security rules and catches misconfigurations before they're deployed. Running Checkov against the vulnerable infrastructure file produces 35 failures across:
+
+| Resource | Key Findings |
+|----------|-------------|
+| S3 Bucket | No encryption, no access logging, no versioning, no public access block |
+| Security Groups | SSH open to 0.0.0.0/0, all ports open, unrestricted egress, orphaned groups |
+| RDS Database | Publicly accessible, unencrypted, hardcoded password, no audit logging |
+| KMS Key | Key rotation disabled |
+| Launch Configuration | Unencrypted EBS, IMDSv1 enabled (SSRF risk) |
+| Lambda Function | Secrets in environment variables, no VPC, no code signing |
+
+```bash
+# Scan with Checkov
+checkov -d labs/vulnerable-infra --framework terraform
+```
+
+In a pipeline, you'd add Checkov the same way you add Semgrep: scan on every PR, block on critical findings, and tune from there.
